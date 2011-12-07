@@ -1,0 +1,54 @@
+This repo contains files that are useful in the provisioning of an NeTV
+device.  It specializes in provisioning many devices at once, in a
+one-to-many fashion.
+
+A single NeTV is turned into a "provisioning bomb" that will then
+automatically provision any unconfigured devices that are placed near it.
+
+Provisioned devices retain their provisioned status until they are
+reimaged, which can be accomplished by holding down the button on the side
+of the device as it starts up.
+
+
+The following scripts are used in the provisioning process.
+
+bless.sh
+    When connected to an NeTV access point, call this script to "bless" the
+    device and turn it into a provisioning bomb.  It will then proceed to
+    provision all unconfigured devices that appear.  Note that you will
+    need to get the passcode from the screen on the device in order to
+    complete the provisioning process.
+
+make-package.sh
+    Use this script to create a .ipk file suitable for deploying.  Largely,
+    it takes an input directory that will then get placed on a device.
+    Note that you can't overwrite files that are created by other packages.
+
+prepare-provision.sh
+    This springboard gets copied over to the device getting "blessed".  It
+    will configure the device, set up startup scripts, and reboot it.  Once
+    the board comes back up, it will act as a "provisioning bomb", and will
+    provision any unconfigured devices that are brought in-range.
+
+provisioning-server.sh
+    This server script daemonizes and then looks for unconfigured devices.
+    When it finds one, it will associate, deploy the provisioning scripts,
+    execute them, and then wait for the board to reboot.
+    
+provision.sh
+    This script will ultimately get copied onto a device as part of the
+    provisioning process.  It installs the package and reboots the board.
+
+
+
+The following scripts are example code.  They are actually integrated into
+various scripts mentioned above, and are useful for debugging.
+
+remote-run.sh
+    Execute a command on an unconfigured NeTV.
+
+remote-send.sh
+    Upload a file to an unconfigured NeTV.
+
+wait-for-wifi-disconnect.sh
+    Wait for the AP we're associated with to disappear.
