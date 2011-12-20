@@ -44,10 +44,3 @@ echo
 # Mark the prep script as executable and run it
 remote_run /bin/chmod 775 /tmp/prepare-provision.sh
 remote_run /tmp/prepare-provision.sh
-echo
-/bin/echo -n "Pairing PID (printed on the screen): "
-read PID
-echo ${PID} > /tmp/pid.txt
-remote_send /tmp/pid.txt /tmp/pairing-pid
-echo
-echo
