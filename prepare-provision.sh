@@ -121,5 +121,6 @@ echo "0" > "${PROV_ROOT}/grand-total"
 echo "0" > "${PROV_ROOT}/total"
 echo '<html><head><script>fCheckAlive() { return true; } </script><meta http-equiv="refresh" content="5"></head><body bgcolor="yellow"><table style="background:purple; width:1280px; height:720px;"><tr><td style="vertical-align:middle; font: 36pt sans-serif; text-align: center;"> Initializing...</td></tr></table></body></html>' > "${PROV_ROOT}/index.html"
 
-
-reboot
+# Remove existing network config files
+rm -f /psp/network_config
+rm -f /psp/network_configs
