@@ -38,7 +38,6 @@ ASC=/tmp/package.asc
 SHA=/tmp/package.sha
 URL=/tmp/package.url
 
-PID=${RANDOM}
 
 
 function die() {
@@ -100,12 +99,7 @@ mkdir -p "${PROV_ROOT}"
 echo "${PROV_ROOT}" > /psp/homepage
 /etc/init.d/chumby-netvserver restart
 /etc/init.d/chumby-netvbrowser restart
-echo '<html><head><script>fCheckAlive() { return true; } </script><meta http-equiv="refresh" content="5"></head><body bgcolor="yellow"><table style="background:purple; width:1280px; height:720px;"><tr><td style="vertical-align:middle; font: 36pt sans-serif; text-align: center;">Pairing Key: '${PID}'</td></tr></table></body></html>' > "${PROV_ROOT}/index.html"
-
-while [ ! -e /tmp/pairing-pid ] && [ "x$(cat /tmp/pairing-pid)" != "x${PID}" ]
-do
-    usleep 200000
-done
+echo '<html><head><script>fCheckAlive() { return true; } </script><meta http-equiv="refresh" content="5"></head><body bgcolor="yellow"><table style="background:purple; width:1280px; height:720px;"><tr><td style="vertical-align:middle; font: 36pt sans-serif; text-align: center;">Preparing...</td></tr></table></body></html>' > "${PROV_ROOT}/index.html"
 
 # Copy necessary files to the provisioning root
 cp "${PKG}" "${PROV_ROOT}"
@@ -126,7 +120,6 @@ echo "Initializing" > "${PROV_ROOT}/status"
 echo "0" > "${PROV_ROOT}/grand-total"
 echo "0" > "${PROV_ROOT}/total"
 echo '<html><head><script>fCheckAlive() { return true; } </script><meta http-equiv="refresh" content="5"></head><body bgcolor="yellow"><table style="background:purple; width:1280px; height:720px;"><tr><td style="vertical-align:middle; font: 36pt sans-serif; text-align: center;"> Initializing...</td></tr></table></body></html>' > "${PROV_ROOT}/index.html"
-
 
 
 reboot
